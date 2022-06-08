@@ -1,4 +1,6 @@
 import 'package:Challenge_App/shared/theme/theme_data.dart';
+import 'package:Challenge_App/views/event_screen.dart';
+import 'package:Challenge_App/views/forgotPassword_screen.dart';
 import 'package:Challenge_App/views/home_page.dart';
 import 'package:Challenge_App/views/login_screen.dart';
 import 'package:flutter/material.dart';
@@ -12,10 +14,12 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: AppThemeData.materialTheme(context),
       debugShowCheckedModeBanner: false,
-      initialRoute: '/login',
+      initialRoute: '/eventScreen',
       routes: {
         '/login': (context) => const LoginScreen(),
-        '/home': (context) => const MyHomePage()
+        '/home': (context) => const MyHomePage(),
+        '/forgotPassword': (context) => const ForgotPasswordScreen(),
+        '/eventScreen': (context) => const EventScreen()
       },
     );
   }

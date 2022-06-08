@@ -8,8 +8,8 @@ class LocationModel {
 
   factory LocationModel.fromJson(Map<String, dynamic> json) {
     return LocationModel(
-      lat: json['lat'],
-      long: json['long'],
+      lat: json['lat'] ?? '',
+      long: json['long'] ?? '',
     );
   }
 

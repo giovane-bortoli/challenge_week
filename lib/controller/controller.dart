@@ -11,8 +11,27 @@ abstract class _ControllerStoreBase with Store {
   @observable
   String email = '';
 
+  @action
+  setEmail(String value) {
+    email = value;
+  }
+
   @observable
   String password = '';
+
+  @action
+  setPassword(String value) {
+    password = value;
+  }
+
+  @observable
+  bool passwordVisible = false;
+
+  @observable
+  String errorMessage = '';
+
+  @action
+  void setIsVisible(bool value) => passwordVisible = value;
 
 //event Register
 
@@ -23,11 +42,20 @@ abstract class _ControllerStoreBase with Store {
       await clientDatabase.loginFirebase(email: email, password: password);
     } catch (e) {
       if (e == 'user-not-found') {
-        throw e;
-      }
+        throw 'usuário não encontrado';
+      } else if (e == 'invalid-email') {
+        throw 'Email inválido';
+      } else if (e == 'wrong-password') {
+        throw 'senha inválida';
+      } else {}
+    }
+  }
+
+  Future<void> forgotPassword({required email}) async {
+    try {
+      await clientDatabase.forgotPasswordFirebase(email: email);
+    } catch (e) {
       if (e == 'invalid-email') {
-        throw e;
-      } else {
         throw e;
       }
     }

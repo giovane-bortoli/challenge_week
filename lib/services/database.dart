@@ -13,6 +13,10 @@ class ClientDatabase {
     }
   }
 
+  Future<void> forgotPasswordFirebase({required email}) async {
+    await clientFirebase.sendPasswordResetEmail(email: email);
+  }
+
   Future<void> logOutFirebase() async {
     FirebaseAuth.instance.signOut();
   }

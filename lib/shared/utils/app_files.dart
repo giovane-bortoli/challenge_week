@@ -1,8 +1,8 @@
 abstract class AppImages {
-  static const backgroundLogin = 'assets/fundo.png';
-  static const logoLogin = 'assets/logo.png';
+  static const imageLogin = './assets/images/Group.svg';
+  static const backgroundEvent = './assets/images/background.svg';
 }
 
-abstract class AppLotties {
-  static const loading = 'assets/images/loading.json';
-}
+// abstract class AppLotties {
+//   static const loading = 'assets/images/loading.json';
+// }

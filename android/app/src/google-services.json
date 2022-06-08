@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1070184104025",
+    "firebase_url": "https://bancodedados2-d106e.firebaseio.com",
+    "project_id": "bancodedados2-d106e",
+    "storage_bucket": "bancodedados2-d106e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1070184104025:android:24c7d92809b3677851f148",
+        "android_client_info": {
+          "package_name": "com.example.challenge_week"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1070184104025-hmaiv987th6e75p9u1omlbegoqfr1pi8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-AfAvmCsik8SpCC-0yMHHG6hNHsTBSGo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1070184104025-hmaiv987th6e75p9u1omlbegoqfr1pi8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

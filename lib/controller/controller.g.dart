@@ -41,6 +41,38 @@ mixin _$ControllerStore on _ControllerStoreBase, Store {
     });
   }
 
+  late final _$passwordVisibleAtom =
+      Atom(name: '_ControllerStoreBase.passwordVisible', context: context);
+
+  @override
+  bool get passwordVisible {
+    _$passwordVisibleAtom.reportRead();
+    return super.passwordVisible;
+  }
+
+  @override
+  set passwordVisible(bool value) {
+    _$passwordVisibleAtom.reportWrite(value, super.passwordVisible, () {
+      super.passwordVisible = value;
+    });
+  }
+
+  late final _$errorMessageAtom =
+      Atom(name: '_ControllerStoreBase.errorMessage', context: context);
+
+  @override
+  String get errorMessage {
+    _$errorMessageAtom.reportRead();
+    return super.errorMessage;
+  }
+
+  @override
+  set errorMessage(String value) {
+    _$errorMessageAtom.reportWrite(value, super.errorMessage, () {
+      super.errorMessage = value;
+    });
+  }
+
   late final _$loginUserAsyncAction =
       AsyncAction('_ControllerStoreBase.loginUser', context: context);
 
@@ -58,11 +90,49 @@ mixin _$ControllerStore on _ControllerStoreBase, Store {
     return _$logOutUserAsyncAction.run(() => super.logOutUser());
   }
 
+  late final _$_ControllerStoreBaseActionController =
+      ActionController(name: '_ControllerStoreBase', context: context);
+
+  @override
+  dynamic setEmail(String value) {
+    final _$actionInfo = _$_ControllerStoreBaseActionController.startAction(
+        name: '_ControllerStoreBase.setEmail');
+    try {
+      return super.setEmail(value);
+    } finally {
+      _$_ControllerStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setPassword(String value) {
+    final _$actionInfo = _$_ControllerStoreBaseActionController.startAction(
+        name: '_ControllerStoreBase.setPassword');
+    try {
+      return super.setPassword(value);
+    } finally {
+      _$_ControllerStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setIsVisible(bool value) {
+    final _$actionInfo = _$_ControllerStoreBaseActionController.startAction(
+        name: '_ControllerStoreBase.setIsVisible');
+    try {
+      return super.setIsVisible(value);
+    } finally {
+      _$_ControllerStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''
 email: ${email},
-password: ${password}
+password: ${password},
+passwordVisible: ${passwordVisible},
+errorMessage: ${errorMessage}
     ''';
   }
 }

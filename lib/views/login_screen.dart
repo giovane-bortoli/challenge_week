@@ -1,5 +1,13 @@
+import 'package:Challenge_App/controller/controller.dart';
+import 'package:Challenge_App/services/api.dart';
+import 'package:Challenge_App/shared/utils/app_colors.dart';
+import 'package:Challenge_App/shared/utils/app_files.dart';
+import 'package:Challenge_App/shared/utils/app_strings.dart';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -8,21 +16,121 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
+ClientHttp api = ClientHttp();
+
+ControllerStore controller = ControllerStore();
+@override
+void initState() {
+  controller.passwordVisible = false;
+}
+
 class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.only(top: 180),
-              child: SvgPicture.asset('./assets/images/Group.svg'),
-            ),
+      body: Observer(builder: (context) {
+        return SingleChildScrollView(
+          child: Column(
+            children: [
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 180),
+                  child: SvgPicture.asset(AppImages.imageLogin),
+                ),
+              ),
+              Text(
+                AppStrings.txtLogin,
+                style: GoogleFonts.montserrat(
+                    fontSize: 24,
+                    color: AppColors.deepPurpleSwatch.shade300,
+                    fontWeight: FontWeight.w700,
+                    letterSpacing: 1.5,
+                    height: 1.5),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16),
+                child: TextFormField(
+                  //validator: controller.validateEmail,
+                  style: GoogleFonts.montserrat(fontSize: 16),
+                  decoration: const InputDecoration(
+                    labelText: AppStrings.txtEmail,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+                child: TextFormField(
+                  //validator: controller.validatePasswd,
+                  obscureText: !controller.passwordVisible,
+                  style: GoogleFonts.montserrat(fontSize: 16),
+                  decoration: InputDecoration(
+                    labelText: AppStrings.txtPassword,
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        controller.passwordVisible
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                      ),
+                      onPressed: () {
+                        if (controller.passwordVisible == false) {
+                          controller.setIsVisible(true);
+                        } else {
+                          controller.setIsVisible(false);
+                        }
+                      },
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 10, right: 245),
+                child: GestureDetector(
+                  child: Text(
+                    AppStrings.txtForgotPassword,
+                    style: GoogleFonts.montserrat(
+                        fontSize: 14,
+                        color: AppColors.deepPurpleSwatch.shade300),
+                  ),
+                  onTap: () {
+                    Navigator.popAndPushNamed(context, '/forgotPassword');
+                    //recovery password method
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: SizedBox(
+                  width: 350,
+                  height: 45,
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(
+                          AppColors.deepPurpleSwatch.shade400),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
+                    ),
+                    onPressed: () {
+                      try {
+                        controller.loginUser(
+                            email: controller.email,
+                            password: controller.password);
+
+                        Navigator.popAndPushNamed(context, '/eventScreen');
+                      } catch (erro) {
+                        erro.toString();
+                      }
+                    },
+                    child: const Text(AppStrings.txtLogin),
+                  ),
+                ),
+              )
+            ],
           ),
-          const Text('Login')
-        ],
-      ),
+        );
+      }),
     );
   }
 }
