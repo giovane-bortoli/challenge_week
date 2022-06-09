@@ -45,7 +45,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               Padding(
                 padding: const EdgeInsets.only(right: 70, left: 64, top: 20),
                 child: Text(
-                  'Informe seu e-mail para recuperar sua senha',
+                  AppStrings.txtLabel2,
                   style: GoogleFonts.montserrat(
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
@@ -86,7 +86,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         Navigator.popAndPushNamed(context, '/login');
                       }
                     },
-                    child: const Text('Enviar'),
+                    child: const Text(AppStrings.txtButtonSend),
                   ),
                 ),
               )
@@ -101,7 +101,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   void customFlushBar(BuildContext context) {
     Flushbar(
       duration: const Duration(seconds: 3),
-      message: 'Seu link de recuperção foi enviado para o e-mail informado',
+      message: AppStrings.txtForgotMessageOk,
       icon: const Icon(
         Icons.check,
         color: Colors.green,

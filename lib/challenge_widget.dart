@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: AppThemeData.materialTheme(context),
       debugShowCheckedModeBanner: false,
-      initialRoute: '/eventScreen',
+      initialRoute: '/login',
       routes: {
         '/login': (context) => const LoginScreen(),
         '/home': (context) => const MyHomePage(),

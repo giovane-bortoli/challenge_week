@@ -16,7 +16,7 @@ class CustomTextTheme {
         fontSize: 20, fontWeight: FontWeight.w500, letterSpacing: 0.15),
     subtitle1: GoogleFonts.mukta(
         fontSize: 16, fontWeight: FontWeight.w400, letterSpacing: 0.15),
-    subtitle2: GoogleFonts.mukta(
+    subtitle2: GoogleFonts.montserrat(
         fontSize: 14, fontWeight: FontWeight.w500, letterSpacing: 0.1),
     bodyText1: GoogleFonts.mukta(
         fontSize: 16, fontWeight: FontWeight.w700, letterSpacing: 0.5),
@@ -24,9 +24,9 @@ class CustomTextTheme {
         fontSize: 14, fontWeight: FontWeight.w400, letterSpacing: 0.25),
     button: GoogleFonts.mukta(
         fontSize: 14, fontWeight: FontWeight.w500, letterSpacing: 1.25),
-    caption: GoogleFonts.mukta(
+    caption: GoogleFonts.montserrat(
         fontSize: 12, fontWeight: FontWeight.w400, letterSpacing: 0.4),
-    overline: GoogleFonts.mukta(
+    overline: GoogleFonts.montserrat(
         fontSize: 10, fontWeight: FontWeight.w400, letterSpacing: 1.5),
   );
 }

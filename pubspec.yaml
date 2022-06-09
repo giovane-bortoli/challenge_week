@@ -18,6 +18,8 @@ dependencies:
   #UX/UI
   google_fonts: ^2.3.3
   flutter_svg: ^1.1.0
+  another_flushbar: ^1.10.29
+  flutter_native_splash: ^2.2.3
 
   #State Management
   mobx: ^2.0.7
@@ -31,9 +33,13 @@ dependencies:
   firebase_core: ^1.17.0
   firebase_auth: ^3.3.18
   cloud_firestore: ^3.1.16
+
+  #maps
   geocoding: ^2.0.4
+  
+  #http - dio
   dio: ^4.0.6
-  another_flushbar: ^1.10.29
+  
 
 dev_dependencies:
   flutter_test:
@@ -52,4 +58,7 @@ flutter:
   assets:
   - ./assets/images/Group.svg
   - ./assets/images/background.svg
+  - ./assets/images/splash_background.png
+  - ./assets/images/Splash.png
+  - ./assets/images/event_background.svg
   

@@ -21,6 +21,7 @@ ClientHttp api = ClientHttp();
 ControllerStore controller = ControllerStore();
 @override
 void initState() {
+  controller.splashInit();
   controller.passwordVisible = false;
 }
 

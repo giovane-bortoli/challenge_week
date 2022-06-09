@@ -1,4 +1,7 @@
+import 'package:Challenge_App/models/event_model.dart';
+import 'package:Challenge_App/services/api.dart';
 import 'package:Challenge_App/services/database.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:mobx/mobx.dart';
 part 'controller.g.dart';
 
@@ -34,6 +37,83 @@ abstract class _ControllerStoreBase with Store {
   void setIsVisible(bool value) => passwordVisible = value;
 
 //event Register
+  @observable
+  String eventName = '';
+
+  @observable
+  String eventDescription = '';
+
+  @observable
+  String date = '';
+
+  @observable
+  String startTime = '';
+
+  @observable
+  String endTime = '';
+
+  @observable
+  String cep = '';
+
+  @observable
+  String street = '';
+
+  @observable
+  String number = '';
+
+  @observable
+  String neighborhood = '';
+
+  @observable
+  String city = '';
+
+  @action
+  setEventName(String value) {
+    eventName = value;
+  }
+
+  @action
+  setStartTime(String value) {
+    startTime = value;
+  }
+
+  @action
+  setEndTime(String value) {
+    endTime = value;
+  }
+
+  @action
+  setCep(String value) {
+    cep = value;
+  }
+
+  @action
+  setStreet(String value) {
+    street = value;
+  }
+
+  @action
+  setNumber(String value) {
+    number = value;
+  }
+
+  @action
+  setNeighborhood(String value) {
+    neighborhood = value;
+  }
+
+  @action
+  setCity(String value) {
+    city = value;
+  }
+
+  @observable
+  List<EventModel> eventList = [];
+
+  @action
+  Future<void> initialLoad() async {
+    eventList = await ClientHttp().getEvent();
+  }
 
   @action
   Future<void> loginUser(
@@ -64,5 +144,14 @@ abstract class _ControllerStoreBase with Store {
   @action
   Future<void> logOutUser() async {
     await clientDatabase.logOutFirebase();
+  }
+
+  //Splash screen
+  @action
+  Future<void> splashInit() async {
+    await Future.delayed(
+      const Duration(seconds: 3),
+    );
+    FlutterNativeSplash.remove();
   }
 }

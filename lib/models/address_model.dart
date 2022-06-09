@@ -25,14 +25,14 @@ class AddressModel {
 
   factory AddressModel.fromJson(Map<String, dynamic> json) {
     return AddressModel(
-      id: json['id'] ?? '',
-      zipcode: json['zipcode'] ?? '',
-      street: json['street'] ?? '',
-      number: json['number'] ?? '',
-      complement: json['complement'] ?? '',
-      neighborhood: json['neighborhood'] ?? '',
-      city: json['city'] ?? '',
-      uf: json['uf'] ?? '',
+      id: json['id'],
+      zipcode: json['zipcode'],
+      street: json['street'],
+      number: json['number'],
+      complement: json['complement'],
+      neighborhood: json['neighborhood'],
+      city: json['city'],
+      uf: json['uf'],
       location: LocationModel.fromJson(json['location']),
     );
   }
