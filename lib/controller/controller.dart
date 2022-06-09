@@ -120,14 +120,12 @@ abstract class _ControllerStoreBase with Store {
       {required String email, required String password}) async {
     try {
       await clientDatabase.loginFirebase(email: email, password: password);
-    } catch (e) {
-      if (e == 'user-not-found') {
-        throw 'usuário não encontrado';
-      } else if (e == 'invalid-email') {
-        throw 'Email inválido';
-      } else if (e == 'wrong-password') {
-        throw 'senha inválida';
-      } else {}
+    } catch (error) {
+      if (error == 'user-not-found') {
+        throw error;
+      } else {
+        throw error;
+      }
     }
   }
 
@@ -141,6 +139,11 @@ abstract class _ControllerStoreBase with Store {
     }
   }
 
+  // @action
+  // Future<void> userAlreadyLogged() async {
+  //   await clientDatabase.firebaseAlreadyLogin();
+  // }
+
   @action
   Future<void> logOutUser() async {
     await clientDatabase.logOutFirebase();
@@ -153,5 +156,18 @@ abstract class _ControllerStoreBase with Store {
       const Duration(seconds: 3),
     );
     FlutterNativeSplash.remove();
+  }
+
+  //Validation Fields
+
+  @action
+  void validadeFields() {
+    if (email.isNotEmpty && email.contains('@.')) {
+      if (password.isNotEmpty && password.length > 6) {
+        clientDatabase.loginFirebase(email: email, password: password);
+      } else {
+        errorMessage = 'Preencha os campos corretamente';
+      }
+    }
   }
 }

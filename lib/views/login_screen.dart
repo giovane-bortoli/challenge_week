@@ -3,6 +3,7 @@ import 'package:Challenge_App/services/api.dart';
 import 'package:Challenge_App/shared/utils/app_colors.dart';
 import 'package:Challenge_App/shared/utils/app_files.dart';
 import 'package:Challenge_App/shared/utils/app_strings.dart';
+import 'package:Challenge_App/shared/utils/field_validator.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -21,6 +22,7 @@ ClientHttp api = ClientHttp();
 ControllerStore controller = ControllerStore();
 @override
 void initState() {
+  //controller.userAlreadyLogged();
   controller.splashInit();
   controller.passwordVisible = false;
 }
@@ -51,7 +53,10 @@ class _LoginScreenState extends State<LoginScreen> {
               Padding(
                 padding: const EdgeInsets.all(16),
                 child: TextFormField(
-                  //validator: controller.validateEmail,
+                  onChanged: (String value) {
+                    controller.setEmail(value);
+                  },
+                  validator: FieldValidator().validateEmail,
                   style: GoogleFonts.montserrat(fontSize: 16),
                   decoration: const InputDecoration(
                     labelText: AppStrings.txtEmail,
@@ -61,7 +66,10 @@ class _LoginScreenState extends State<LoginScreen> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
                 child: TextFormField(
-                  //validator: controller.validatePasswd,
+                  onChanged: ((String value) {
+                    controller.setPassword(value);
+                  }),
+                  validator: FieldValidator().validatePasswd,
                   obscureText: !controller.passwordVisible,
                   style: GoogleFonts.montserrat(fontSize: 16),
                   decoration: InputDecoration(
@@ -115,13 +123,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     onPressed: () {
                       try {
-                        controller.loginUser(
-                            email: controller.email,
-                            password: controller.password);
-
-                        Navigator.popAndPushNamed(context, '/eventScreen');
-                      } catch (erro) {
-                        erro.toString();
+                        controller
+                            .loginUser(
+                                email: controller.email,
+                                password: controller.password)
+                            .then((value) => Navigator.popAndPushNamed(
+                                context, '/eventScreen'));
+                      } catch (error) {
+                        controller.errorMessage = error.toString();
                       }
                     },
                     child: const Text(AppStrings.txtLogin),

@@ -1,4 +1,5 @@
 import 'package:Challenge_App/shared/theme/theme_data.dart';
+import 'package:Challenge_App/views/event_creation_screen.dart';
 import 'package:Challenge_App/views/event_screen.dart';
 import 'package:Challenge_App/views/forgotPassword_screen.dart';
 import 'package:Challenge_App/views/home_page.dart';
@@ -19,7 +20,8 @@ class MyApp extends StatelessWidget {
         '/login': (context) => const LoginScreen(),
         '/home': (context) => const MyHomePage(),
         '/forgotPassword': (context) => const ForgotPasswordScreen(),
-        '/eventScreen': (context) => const EventScreen()
+        '/eventScreen': (context) => const EventScreen(),
+        '/eventCreation': (context) => const EventCreationScreen()
       },
     );
   }

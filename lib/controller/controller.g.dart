@@ -407,6 +407,17 @@ mixin _$ControllerStore on _ControllerStoreBase, Store {
   }
 
   @override
+  void validadeFields() {
+    final _$actionInfo = _$_ControllerStoreBaseActionController.startAction(
+        name: '_ControllerStoreBase.validadeFields');
+    try {
+      return super.validadeFields();
+    } finally {
+      _$_ControllerStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 email: ${email},
