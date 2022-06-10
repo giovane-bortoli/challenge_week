@@ -1,14 +1,17 @@
 import 'package:Challenge_App/models/event_model.dart';
 import 'package:Challenge_App/services/api.dart';
 import 'package:Challenge_App/services/database.dart';
+import 'package:Challenge_App/services/prefs.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:mobx/mobx.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 part 'controller.g.dart';
 
 class ControllerStore = _ControllerStoreBase with _$ControllerStore;
 
 abstract class _ControllerStoreBase with Store {
   final clientDatabase = ClientDatabase();
+  final prefs = Prefs();
 
   //Database - Login
   @observable
@@ -70,6 +73,16 @@ abstract class _ControllerStoreBase with Store {
   @action
   setEventName(String value) {
     eventName = value;
+  }
+
+  @action
+  setEventDescription(String value) {
+    eventDescription = value;
+  }
+
+  @action
+  setDate(String value) {
+    date = value;
   }
 
   @action
@@ -170,4 +183,25 @@ abstract class _ControllerStoreBase with Store {
       }
     }
   }
+
+  //SavingLocal Data
+
+  @action
+  Future<void> saveData(EventModel event) async {
+    await prefs.saveData(event);
+  }
+
+  // @action
+  // Future<void> saveData() async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   await prefs.setString('event_name', eventName);
+  //   await prefs.setString('event_description', eventDescription);
+  //   await prefs.setString('start_time', startTime);
+  //   await prefs.setString('end_time', endTime);
+  //   await prefs.setString('cep', cep);
+  //   await prefs.setString('street', street);
+  //   await prefs.setString('number', number);
+  //   await prefs.setString('neighborhood', neighborhood);
+  //   await prefs.setString('city', city);
+  // }
 }

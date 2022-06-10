@@ -330,6 +330,28 @@ mixin _$ControllerStore on _ControllerStoreBase, Store {
   }
 
   @override
+  dynamic setEventDescription(String value) {
+    final _$actionInfo = _$_ControllerStoreBaseActionController.startAction(
+        name: '_ControllerStoreBase.setEventDescription');
+    try {
+      return super.setEventDescription(value);
+    } finally {
+      _$_ControllerStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic setDate(String value) {
+    final _$actionInfo = _$_ControllerStoreBaseActionController.startAction(
+        name: '_ControllerStoreBase.setDate');
+    try {
+      return super.setDate(value);
+    } finally {
+      _$_ControllerStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic setStartTime(String value) {
     final _$actionInfo = _$_ControllerStoreBaseActionController.startAction(
         name: '_ControllerStoreBase.setStartTime');

@@ -1,5 +1,6 @@
 import 'package:Challenge_App/controller/controller.dart';
 import 'package:Challenge_App/services/api.dart';
+import 'package:Challenge_App/shared/theme/font_theme.dart';
 import 'package:Challenge_App/shared/utils/app_colors.dart';
 import 'package:Challenge_App/shared/utils/app_files.dart';
 import 'package:Challenge_App/shared/utils/app_strings.dart';
