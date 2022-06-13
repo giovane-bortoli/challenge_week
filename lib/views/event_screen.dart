@@ -8,6 +8,8 @@ import 'package:Challenge_App/shared/utils/app_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 
 class EventScreen extends StatefulWidget {
   const EventScreen({Key? key}) : super(key: key);
@@ -44,7 +46,8 @@ class _EventScreenState extends State<EventScreen> {
               children: [
                 IconButton(
                   onPressed: () {
-                    Navigator.popAndPushNamed(context, '/eventScreen');
+                    controller.logOutUser();
+                    Navigator.popAndPushNamed(context, '/login');
                   },
                   icon: const Icon(Icons.arrow_back_ios),
                 ),
@@ -74,21 +77,19 @@ class _EventScreenState extends State<EventScreen> {
             Observer(builder: (context) {
               return TabBarView(
                 children: [
-                  Center(
-                    child: Container(
-                      color: Colors.white,
-                      child: ListView.builder(
-                        itemCount: controller.eventList.length,
-                        physics: const ScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          return cardEvent(controller.eventList[index]);
-                        },
-                      ),
+                  Container(
+                    color: Colors.white,
+                    child: ListView.builder(
+                      itemCount: controller.eventList.length,
+                      physics: const ScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        return cardEvent(controller.eventList[index]);
+                      },
                     ),
                   ),
                   Container(
-                    color: Colors.blue,
-                    child: const Text('teste'),
+                    color: Colors.white,
+                    child: cardNewEvent(),
                   ),
                 ],
               );
@@ -132,20 +133,37 @@ class _EventScreenState extends State<EventScreen> {
         borderRadius: BorderRadius.circular(10),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(8),
-        child: Column(
-          children: [
-            SvgPicture.asset(AppImages.cardImage),
-            Text(event.eventName, style: CustomTextTheme.textTheme.subtitle2),
-            Text(event.eventDescription,
-                style: CustomTextTheme.textTheme.caption),
-            Text(
-              '${event.startTime} - ${event.endTime}',
-              style: CustomTextTheme.textTheme.overline,
-            ),
-          ],
+        padding: const EdgeInsets.fromLTRB(40, 16, 40, 16),
+        child: Container(
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SvgPicture.asset(AppImages.cardImage),
+              Text(
+                event.eventName,
+                style: GoogleFonts.montserrat(fontSize: 16),
+                textAlign: TextAlign.left,
+              ),
+              Text(event.eventDescription,
+                  style: GoogleFonts.montserrat(fontSize: 12)),
+              Text(
+                '${event.startTime} - ${event.endTime}',
+                style:
+                    GoogleFonts.montserrat(fontSize: 12, color: Colors.orange),
+              ),
+            ],
+          ),
         ),
       ),
+    );
+  }
+
+  Widget cardNewEvent() {
+    return InkWell(
+      onTap: () {
+        controller.getData();
+      },
     );
   }
 }

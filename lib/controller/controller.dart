@@ -70,54 +70,72 @@ abstract class _ControllerStoreBase with Store {
   @observable
   String city = '';
 
+  @observable
+  bool isSaved = false;
+
+  @action
+  void setIsSaved(bool value) {
+    isSaved = value;
+  }
+
   @action
   setEventName(String value) {
     eventName = value;
+    setIsSaved(false);
   }
 
   @action
   setEventDescription(String value) {
     eventDescription = value;
+    setIsSaved(false);
   }
 
   @action
   setDate(String value) {
     date = value;
+    setIsSaved(false);
   }
 
   @action
   setStartTime(String value) {
     startTime = value;
+    setIsSaved(false);
   }
 
   @action
   setEndTime(String value) {
     endTime = value;
+    setIsSaved(false);
   }
 
   @action
   setCep(String value) {
     cep = value;
+    setIsSaved(false);
   }
 
   @action
   setStreet(String value) {
     street = value;
+    setIsSaved(false);
   }
 
   @action
   setNumber(String value) {
     number = value;
+    setIsSaved(false);
   }
 
   @action
   setNeighborhood(String value) {
     neighborhood = value;
+    setIsSaved(false);
   }
 
   @action
   setCity(String value) {
     city = value;
+    setIsSaved(false);
   }
 
   @observable
@@ -152,15 +170,15 @@ abstract class _ControllerStoreBase with Store {
     }
   }
 
-  // @action
-  // Future<void> userAlreadyLogged() async {
-  //   await clientDatabase.firebaseAlreadyLogin();
-  // }
-
   @action
   Future<void> logOutUser() async {
     await clientDatabase.logOutFirebase();
   }
+
+  // @action
+  // Future<void> userAlreadyLogged() async {
+  //   await clientDatabase.firebaseAlreadyLogin();
+  // }
 
   //Splash screen
   @action
@@ -186,22 +204,49 @@ abstract class _ControllerStoreBase with Store {
 
   //SavingLocal Data
 
+  // @action
+  // Future<void> saveData(EventModel event) async {
+  //   await prefs.saveData(event);
+  // }
+
   @action
-  Future<void> saveData(EventModel event) async {
-    await prefs.saveData(event);
+  Future<void> saveData() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('event_name', eventName);
+    await prefs.setString('event_description', eventDescription);
+    await prefs.setString('start_time', startTime);
+    await prefs.setString('end_time', endTime);
+    await prefs.setString('cep', cep);
+    await prefs.setString('street', street);
+    await prefs.setString('number', number);
+    await prefs.setString('neighborhood', neighborhood);
+    await prefs.setString('city', city);
+    setIsSaved(true);
   }
 
-  // @action
-  // Future<void> saveData() async {
-  //   final prefs = await SharedPreferences.getInstance();
-  //   await prefs.setString('event_name', eventName);
-  //   await prefs.setString('event_description', eventDescription);
-  //   await prefs.setString('start_time', startTime);
-  //   await prefs.setString('end_time', endTime);
-  //   await prefs.setString('cep', cep);
-  //   await prefs.setString('street', street);
-  //   await prefs.setString('number', number);
-  //   await prefs.setString('neighborhood', neighborhood);
-  //   await prefs.setString('city', city);
-  // }
+  @action
+  Future<void> getData() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.getString('event_name');
+    prefs.getString('event_description');
+    prefs.getString('start_time');
+    prefs.getString('end_time');
+    prefs.getString('cep');
+    prefs.getString('street');
+    prefs.getString('number');
+    prefs.getString('neighborhood');
+    prefs.getString('city');
+  }
+
+  @computed
+  bool get validEvent =>
+      eventName.isNotEmpty &&
+      eventDescription.isNotEmpty &&
+      startTime.isNotEmpty &&
+      endTime.isNotEmpty &&
+      cep.isNotEmpty &&
+      street.isNotEmpty &&
+      number.isNotEmpty &&
+      neighborhood.isNotEmpty &&
+      city.isNotEmpty;
 }

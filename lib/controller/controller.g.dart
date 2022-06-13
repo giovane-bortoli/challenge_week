@@ -9,6 +9,14 @@ part of 'controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$ControllerStore on _ControllerStoreBase, Store {
+  Computed<bool>? _$validEventComputed;
+
+  @override
+  bool get validEvent =>
+      (_$validEventComputed ??= Computed<bool>(() => super.validEvent,
+              name: '_ControllerStoreBase.validEvent'))
+          .value;
+
   late final _$emailAtom =
       Atom(name: '_ControllerStoreBase.email', context: context);
 
@@ -233,6 +241,22 @@ mixin _$ControllerStore on _ControllerStoreBase, Store {
     });
   }
 
+  late final _$isSavedAtom =
+      Atom(name: '_ControllerStoreBase.isSaved', context: context);
+
+  @override
+  bool get isSaved {
+    _$isSavedAtom.reportRead();
+    return super.isSaved;
+  }
+
+  @override
+  set isSaved(bool value) {
+    _$isSavedAtom.reportWrite(value, super.isSaved, () {
+      super.isSaved = value;
+    });
+  }
+
   late final _$eventListAtom =
       Atom(name: '_ControllerStoreBase.eventList', context: context);
 
@@ -282,6 +306,22 @@ mixin _$ControllerStore on _ControllerStoreBase, Store {
     return _$splashInitAsyncAction.run(() => super.splashInit());
   }
 
+  late final _$saveDataAsyncAction =
+      AsyncAction('_ControllerStoreBase.saveData', context: context);
+
+  @override
+  Future<void> saveData() {
+    return _$saveDataAsyncAction.run(() => super.saveData());
+  }
+
+  late final _$getDataAsyncAction =
+      AsyncAction('_ControllerStoreBase.getData', context: context);
+
+  @override
+  Future<void> getData() {
+    return _$getDataAsyncAction.run(() => super.getData());
+  }
+
   late final _$_ControllerStoreBaseActionController =
       ActionController(name: '_ControllerStoreBase', context: context);
 
@@ -313,6 +353,17 @@ mixin _$ControllerStore on _ControllerStoreBase, Store {
         name: '_ControllerStoreBase.setIsVisible');
     try {
       return super.setIsVisible(value);
+    } finally {
+      _$_ControllerStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setIsSaved(bool value) {
+    final _$actionInfo = _$_ControllerStoreBaseActionController.startAction(
+        name: '_ControllerStoreBase.setIsSaved');
+    try {
+      return super.setIsSaved(value);
     } finally {
       _$_ControllerStoreBaseActionController.endAction(_$actionInfo);
     }
@@ -456,7 +507,9 @@ street: ${street},
 number: ${number},
 neighborhood: ${neighborhood},
 city: ${city},
-eventList: ${eventList}
+isSaved: ${isSaved},
+eventList: ${eventList},
+validEvent: ${validEvent}
     ''';
   }
 }

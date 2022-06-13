@@ -3,7 +3,9 @@ import 'package:Challenge_App/models/event_model.dart';
 import 'package:Challenge_App/services/prefs.dart';
 
 import 'package:Challenge_App/shared/utils/app_colors.dart';
+import 'package:Challenge_App/shared/utils/app_strings.dart';
 import 'package:Challenge_App/views/login_screen.dart';
+import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -41,7 +43,7 @@ class _EventCreationScreenState extends State<EventCreationScreen> {
               const Padding(
                 padding: EdgeInsets.all(60),
                 child: Text(
-                  'Adicionar evento',
+                  AppStrings.appBarTitle,
                   textAlign: TextAlign.right,
                 ),
               )
@@ -57,7 +59,7 @@ class _EventCreationScreenState extends State<EventCreationScreen> {
             Container(
               margin: const EdgeInsets.only(right: 220, bottom: 10),
               child: Text(
-                'Informações do evento',
+                AppStrings.eventInformation,
                 style: GoogleFonts.montserrat(
                   fontSize: 12,
                 ),
@@ -66,7 +68,7 @@ class _EventCreationScreenState extends State<EventCreationScreen> {
             Padding(
               padding: const EdgeInsets.only(right: 240),
               child: Text(
-                'Nome do evento',
+                AppStrings.eventName,
                 style: GoogleFonts.montserrat(fontSize: 14),
               ),
             ),
@@ -77,7 +79,7 @@ class _EventCreationScreenState extends State<EventCreationScreen> {
             ),
             Padding(
               padding: const EdgeInsets.only(right: 220, top: 10),
-              child: Text('Descrição do evento',
+              child: Text(AppStrings.eventDescription,
                   style: GoogleFonts.montserrat(fontSize: 14)),
             ),
             TxtForm(onChange: (String value) {
@@ -97,7 +99,7 @@ class _EventCreationScreenState extends State<EventCreationScreen> {
                   ),
                   Expanded(
                     child: TxtForm(
-                      hintText: '00:00',
+                      hintText: AppStrings.startTime,
                       onChange: (String value) {
                         controller.setStartTime(value);
                       },
@@ -105,7 +107,7 @@ class _EventCreationScreenState extends State<EventCreationScreen> {
                   ),
                   Expanded(
                     child: TxtForm(
-                      hintText: '00:00',
+                      hintText: AppStrings.endtime,
                       onChange: (String value) {
                         controller.setEndTime(value);
                       },
@@ -117,7 +119,7 @@ class _EventCreationScreenState extends State<EventCreationScreen> {
             Padding(
               padding: const EdgeInsets.only(right: 230, top: 20),
               child: Text(
-                'Informações do local',
+                AppStrings.localInformation,
                 style: GoogleFonts.montserrat(
                   fontSize: 12,
                 ),
@@ -126,7 +128,7 @@ class _EventCreationScreenState extends State<EventCreationScreen> {
             Padding(
               padding: const EdgeInsets.only(right: 320, top: 10),
               child: Text(
-                'CEP',
+                AppStrings.cep,
                 style: GoogleFonts.montserrat(fontSize: 14),
               ),
             ),
@@ -138,7 +140,7 @@ class _EventCreationScreenState extends State<EventCreationScreen> {
             Padding(
               padding: const EdgeInsets.only(right: 320, top: 10),
               child: Text(
-                'Rua',
+                AppStrings.street,
                 style: GoogleFonts.montserrat(fontSize: 14),
               ),
             ),
@@ -150,7 +152,7 @@ class _EventCreationScreenState extends State<EventCreationScreen> {
             Padding(
               padding: const EdgeInsets.only(right: 305, top: 10),
               child: Text(
-                'Bairro',
+                AppStrings.neighborhood,
                 style: GoogleFonts.montserrat(fontSize: 14),
               ),
             ),
@@ -162,7 +164,7 @@ class _EventCreationScreenState extends State<EventCreationScreen> {
             Padding(
               padding: const EdgeInsets.only(right: 300, top: 10),
               child: Text(
-                'Número',
+                AppStrings.number,
                 style: GoogleFonts.montserrat(fontSize: 14),
               ),
             ),
@@ -174,7 +176,7 @@ class _EventCreationScreenState extends State<EventCreationScreen> {
             Padding(
               padding: const EdgeInsets.only(right: 310, top: 10),
               child: Text(
-                'Cidade',
+                AppStrings.city,
                 style: GoogleFonts.montserrat(fontSize: 14),
               ),
             ),
@@ -194,12 +196,38 @@ class _EventCreationScreenState extends State<EventCreationScreen> {
                 ),
               ),
               onPressed: () async {
-                event != null
-                    ? controller.saveData(event!)
-                    : const Text('salvo');
+                if (controller.validEvent == true) {
+                  Flushbar(
+                    icon: const Icon(
+                      Icons.check_circle,
+                      color: Colors.green,
+                    ),
+                    flushbarStyle: FlushbarStyle.GROUNDED,
+                    backgroundColor: Colors.white,
+                    messageColor: Colors.black,
+                    duration: const Duration(seconds: 3),
+                    message: AppStrings.flushBarOK,
+                  ).show(context);
+
+                  controller.saveData();
+                } else {
+                  Flushbar(
+                    icon: const Icon(
+                      Icons.check_circle,
+                      color: Colors.red,
+                    ),
+                    flushbarStyle: FlushbarStyle.GROUNDED,
+                    backgroundColor: Colors.white,
+                    messageColor: Colors.black,
+                    duration: const Duration(seconds: 3),
+                    message: AppStrings.flushBarError,
+                  ).show(context);
+
+                  controller.saveData();
+                }
               },
               child: Text(
-                'Adicionar evento',
+                AppStrings.addEventButton,
                 style: GoogleFonts.montserrat(
                     fontSize: 16,
                     fontStyle: FontStyle.normal,
