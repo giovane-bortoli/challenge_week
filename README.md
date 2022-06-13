@@ -1,16 +1,9 @@
 # challenge_week
 
-A new Flutter project.
+para logar no app após a execução estou usando meu e-mail, pois só pode ser um e-mail válido, giovane.goularte@gmail.com, senha 123456.
 
-## Getting Started
+Após o login já é mostrado os eventos que são buscados na API da soft, não estão com detalhes e a formatação do card não está 100%.
 
-This project is a starting point for a Flutter application.
+Após logar também é possível criar um novo evento, não tem validação de campos, se todos os dados estiverem preenchidos ele salvará no Shared preference.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+em meus eventos não está mostrando os eventos salvos no shared preference.
