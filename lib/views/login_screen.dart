@@ -7,9 +7,11 @@ import 'package:Challenge_App/shared/utils/app_strings.dart';
 import 'package:Challenge_App/shared/utils/field_validator.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -29,6 +31,8 @@ void initState() {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final maskEmail = MaskTextInputFormatter(mask: '');
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,6 +58,7 @@ class _LoginScreenState extends State<LoginScreen> {
               Padding(
                 padding: const EdgeInsets.all(16),
                 child: TextFormField(
+                  keyboardType: TextInputType.emailAddress,
                   onChanged: (String value) {
                     controller.setEmail(value);
                   },
@@ -143,5 +148,17 @@ class _LoginScreenState extends State<LoginScreen> {
         );
       }),
     );
+  }
+}
+
+class EmailMask extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
+    if (RegExp(r'\w+@\w+\.\w+').hasMatch(newValue.text)) {
+      return newValue;
+    } else {
+      return oldValue;
+    }
   }
 }

@@ -1,14 +1,27 @@
-import 'package:Challenge_App/shared/theme/font_theme.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:pattern_formatter/date_formatter.dart';
+
+import 'package:Challenge_App/shared/theme/font_theme.dart';
 
 class TxtForm extends StatefulWidget {
   final String? hintText;
-  final Function(String) onChange;
+  final Function(String)? onChange;
+  final String? hint;
+  final TextInputType? textInputType;
+  final FormFieldValidator<String>? validator;
+  final TextInputFormatter? formatter;
 
   const TxtForm({
     Key? key,
-    required this.onChange,
     this.hintText,
+    this.onChange,
+    this.hint,
+    this.textInputType,
+    this.validator,
+    this.formatter,
   }) : super(key: key);
 
   @override

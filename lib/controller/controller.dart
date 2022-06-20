@@ -187,6 +187,7 @@ abstract class _ControllerStoreBase with Store {
       const Duration(seconds: 3),
     );
     FlutterNativeSplash.remove();
+    clientDatabase.firebaseAlreadyLogin();
   }
 
   //Validation Fields

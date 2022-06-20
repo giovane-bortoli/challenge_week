@@ -26,13 +26,13 @@ class ClientDatabase {
     FirebaseAuth.instance.signOut();
   }
 
-  // Future<void> firebaseAlreadyLogin() async {
-  //   FirebaseAuth.instance.authStateChanges().listen((User? email) {
-  //     if (email == null) {
-  //       inspect('User is currently signed out!');
-  //     } else {
-  //       inspect('user is signed in');
-  //     }
-  //   });
-  // }
+  Future<void> firebaseAlreadyLogin() async {
+    FirebaseAuth.instance.authStateChanges().listen((User? email) {
+      if (email == null) {
+        inspect('User is currently signed out!');
+      } else {
+        inspect('user is signed in');
+      }
+    });
+  }
 }

@@ -5,11 +5,11 @@ import 'package:Challenge_App/shared/theme/font_theme.dart';
 import 'package:Challenge_App/shared/utils/app_colors.dart';
 import 'package:Challenge_App/shared/utils/app_files.dart';
 import 'package:Challenge_App/shared/utils/app_strings.dart';
+import 'package:Challenge_App/shared/utils/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
 
 class EventScreen extends StatefulWidget {
   const EventScreen({Key? key}) : super(key: key);
@@ -87,10 +87,7 @@ class _EventScreenState extends State<EventScreen> {
                       },
                     ),
                   ),
-                  Container(
-                    color: Colors.white,
-                    child: cardNewEvent(),
-                  ),
+                  Container(color: Colors.white, child: const Text('teste')),
                 ],
               );
             }),
@@ -128,29 +125,53 @@ class _EventScreenState extends State<EventScreen> {
 
   Widget cardEvent(EventModel event) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.popAndPushNamed(context, '/eventDetails', arguments: event);
+      },
       customBorder: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(40, 16, 40, 16),
+        padding: const EdgeInsets.fromLTRB(40, 0, 40, 0),
         child: Container(
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SvgPicture.asset(AppImages.cardImage),
+              SvgPicture.asset(
+                AppImages.cardImage,
+                width: 500,
+              ),
               Text(
                 event.eventName,
-                style: GoogleFonts.montserrat(fontSize: 16),
+                style: GoogleFonts.montserrat(fontSize: 18),
                 textAlign: TextAlign.left,
               ),
               Text(event.eventDescription,
                   style: GoogleFonts.montserrat(fontSize: 12)),
               Text(
-                '${event.startTime} - ${event.endTime}',
+                '${formatDate(DateTime.parse(event.startTime))} - ${formatDate(DateTime.parse(event.endTime))}',
                 style:
                     GoogleFonts.montserrat(fontSize: 12, color: Colors.orange),
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              Row(
+                children: [
+                  SvgPicture.asset(AppImages.mapImageIcon),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: Text(event.address.street),
+                  ),
+                ],
+              ),
+              TextButton(
+                onPressed: () {},
+                style: TextButton.styleFrom(
+                  textStyle: const TextStyle(fontSize: 12),
+                ),
+                child: const Text('Ver no mapa'),
               ),
             ],
           ),
@@ -159,11 +180,10 @@ class _EventScreenState extends State<EventScreen> {
     );
   }
 
-  Widget cardNewEvent() {
-    return InkWell(
-      onTap: () {
-        controller.getData();
-      },
+  Widget customDivider() {
+    return const VerticalDivider(
+      color: AppColors.neutralColorLowLight,
+      thickness: 3,
     );
   }
 }

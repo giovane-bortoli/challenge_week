@@ -20,6 +20,10 @@ dependencies:
   flutter_svg: ^1.1.0
   another_flushbar: ^1.10.29
   flutter_native_splash: ^2.2.3
+  mask_text_input_formatter: ^2.3.0
+  pattern_formatter: ^2.0.0
+  intl: ^0.17.0
+  timezone: ^0.8.0
 
   #State Management
   mobx: ^2.0.7
@@ -62,4 +66,5 @@ flutter:
   - ./assets/images/splash_background.png
   - ./assets/images/Splash.png
   - ./assets/images/event_background.svg
+  - ./assets/images/map.svg
   
