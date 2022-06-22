@@ -139,6 +139,13 @@ abstract class _ControllerStoreBase with Store {
   }
 
   @observable
+  bool googleMapController = false;
+  @action
+  void setGoogleMapController(bool value) {
+    googleMapController = value;
+  }
+
+  @observable
   List<EventModel> eventList = [];
 
   @action

@@ -77,15 +77,30 @@ class _EventScreenState extends State<EventScreen> {
             Observer(builder: (context) {
               return TabBarView(
                 children: [
-                  Container(
-                    color: Colors.white,
-                    child: ListView.builder(
-                      itemCount: controller.eventList.length,
-                      physics: const ScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        return cardEvent(controller.eventList[index]);
-                      },
-                    ),
+                  Row(
+                    children: [
+                      //date
+                      Text('date'),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            left: 20, top: 32, bottom: 50),
+                        child: customDivider(),
+                      ),
+                      Expanded(
+                        child: Container(
+                          color: Colors.white,
+                          child: ListView.builder(
+                            scrollDirection: Axis.vertical,
+                            shrinkWrap: true,
+                            itemCount: controller.eventList.length,
+                            physics: const ScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              return cardEvent(controller.eventList[index]);
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   Container(color: Colors.white, child: const Text('teste')),
                 ],
@@ -96,7 +111,10 @@ class _EventScreenState extends State<EventScreen> {
               left: 0,
               bottom: 0,
               child: Container(
-                margin: const EdgeInsets.only(left: 50, right: 50),
+                margin: const EdgeInsets.only(
+                  left: 50,
+                  right: 50,
+                ),
                 child: Padding(
                   padding: const EdgeInsets.all(10),
                   child: ElevatedButton(
@@ -132,7 +150,7 @@ class _EventScreenState extends State<EventScreen> {
         borderRadius: BorderRadius.circular(10),
       ),
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(40, 0, 40, 0),
+        padding: const EdgeInsets.fromLTRB(0, 0, 25, 0),
         child: Container(
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
           child: Column(
