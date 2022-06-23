@@ -5,6 +5,7 @@ import 'package:Challenge_App/shared/utils/app_colors.dart';
 import 'package:Challenge_App/shared/utils/app_files.dart';
 import 'package:Challenge_App/shared/utils/app_strings.dart';
 import 'package:Challenge_App/shared/utils/field_validator.dart';
+import 'package:another_flushbar/flushbar.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,6 +13,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:mobx/mobx.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -23,15 +25,52 @@ class LoginScreen extends StatefulWidget {
 ClientHttp api = ClientHttp();
 
 ControllerStore controller = ControllerStore();
-@override
-void initState() {
-  //controller.userAlreadyLogged();
-  controller.splashInit();
-  controller.passwordVisible = false;
-}
+// @override
+// void initState() {
+//   //controller.userAlreadyLogged();
+
+//   controller.splashInit();
+//   controller.passwordVisible = false;
+// }
 
 class _LoginScreenState extends State<LoginScreen> {
   final maskEmail = MaskTextInputFormatter(mask: '');
+
+  late final ReactionDisposer reactionErrorFirebase;
+
+  @override
+  void initState() {
+    controller.splashInit();
+    controller.passwordVisible = false;
+    errorFirebase();
+    super.initState();
+  }
+
+//boa prática para eliminar reaction
+  @override
+  void dispose() {
+    reactionErrorFirebase();
+    super.dispose();
+  }
+
+//reaction para método validação do login
+  void errorFirebase() {
+    reactionErrorFirebase = reaction((_) => controller.erroFirebase, (_) {
+      controller.erroFirebase
+          ? Flushbar(
+              icon: const Icon(
+                Icons.check_circle,
+                color: Colors.red,
+              ),
+              flushbarStyle: FlushbarStyle.GROUNDED,
+              backgroundColor: Colors.white,
+              messageColor: Colors.black,
+              duration: const Duration(seconds: 3),
+              message: controller.messageFirebaseError,
+            ).show(context)
+          : null;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +101,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   onChanged: (String value) {
                     controller.setEmail(value);
                   },
-                  validator: FieldValidator().validateEmail,
                   style: GoogleFonts.montserrat(fontSize: 16),
                   decoration: const InputDecoration(
                     labelText: AppStrings.txtEmail,
@@ -75,7 +113,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   onChanged: ((String value) {
                     controller.setPassword(value);
                   }),
-                  validator: FieldValidator().validatePasswd,
                   obscureText: !controller.passwordVisible,
                   style: GoogleFonts.montserrat(fontSize: 16),
                   decoration: InputDecoration(
@@ -128,15 +165,34 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     onPressed: () {
-                      try {
-                        controller
-                            .loginUser(
-                                email: controller.email,
-                                password: controller.password)
-                            .then((value) => Navigator.popAndPushNamed(
-                                context, '/eventScreen'));
-                      } catch (error) {
-                        controller.errorMessage = error.toString();
+                      controller.validadeFields();
+                      if (controller.hasErrorEmail) {
+                        Flushbar(
+                          icon: const Icon(
+                            Icons.check_circle,
+                            color: Colors.red,
+                          ),
+                          flushbarStyle: FlushbarStyle.GROUNDED,
+                          backgroundColor: Colors.white,
+                          messageColor: Colors.black,
+                          duration: const Duration(seconds: 3),
+                          message: AppStrings.flushBarError,
+                        ).show(context);
+                      } else {
+                        try {
+                          controller
+                              .loginUser(
+                                  email: controller.email,
+                                  password: controller.password)
+                              .then((value) {
+                            return !controller.erroFirebase
+                                ? Navigator.popAndPushNamed(
+                                    context, '/eventScreen')
+                                : null;
+                          });
+                        } catch (error) {
+                          controller.errorMessage = error.toString();
+                        }
                       }
                     },
                     child: const Text(AppStrings.txtLogin),

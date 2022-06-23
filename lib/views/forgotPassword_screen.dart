@@ -1,4 +1,5 @@
 import 'package:Challenge_App/controller/controller.dart';
+import 'package:Challenge_App/models/event_model.dart';
 import 'package:Challenge_App/shared/theme/font_theme.dart';
 import 'package:Challenge_App/shared/utils/app_colors.dart';
 import 'package:Challenge_App/shared/utils/app_files.dart';
@@ -19,6 +20,7 @@ class ForgotPasswordScreen extends StatefulWidget {
 
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   ControllerStore controller = ControllerStore();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,7 +85,29 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       controller.forgotPassword(email: controller.email);
 
                       if (controller.email.isNotEmpty) {
-                        Navigator.popAndPushNamed(context, '/login');
+                        Flushbar(
+                          icon: const Icon(
+                            Icons.check_circle,
+                            color: Colors.green,
+                          ),
+                          flushbarStyle: FlushbarStyle.GROUNDED,
+                          backgroundColor: Colors.white,
+                          messageColor: Colors.black,
+                          duration: const Duration(seconds: 3),
+                          message: AppStrings.txtForgotMessageOk,
+                        ).show(context);
+                      } else {
+                        Flushbar(
+                          icon: const Icon(
+                            Icons.check_circle,
+                            color: Colors.red,
+                          ),
+                          flushbarStyle: FlushbarStyle.GROUNDED,
+                          backgroundColor: Colors.white,
+                          messageColor: Colors.black,
+                          duration: const Duration(seconds: 3),
+                          message: AppStrings.txtForgotMessageError,
+                        ).show(context);
                       }
                     },
                     child: const Text(AppStrings.txtButtonSend),

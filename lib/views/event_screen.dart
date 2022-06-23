@@ -80,7 +80,11 @@ class _EventScreenState extends State<EventScreen> {
                   Row(
                     children: [
                       //date
-                      Text('date'),
+                      Text(
+                        formatDateRowEventScreen(
+                          DateTime.parse(event!.startTime),
+                        ),
+                      ),
                       Padding(
                         padding: const EdgeInsets.only(
                             left: 20, top: 32, bottom: 50),

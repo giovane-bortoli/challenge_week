@@ -12,7 +12,6 @@ class TxtForm extends StatefulWidget {
   final String? hint;
   final TextInputType? textInputType;
   final FormFieldValidator<String>? validator;
-  final TextInputFormatter? formatter;
 
   const TxtForm({
     Key? key,
@@ -21,7 +20,6 @@ class TxtForm extends StatefulWidget {
     this.hint,
     this.textInputType,
     this.validator,
-    this.formatter,
   }) : super(key: key);
 
   @override

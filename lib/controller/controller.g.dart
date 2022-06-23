@@ -257,6 +257,22 @@ mixin _$ControllerStore on _ControllerStoreBase, Store {
     });
   }
 
+  late final _$googleMapControllerAtom =
+      Atom(name: '_ControllerStoreBase.googleMapController', context: context);
+
+  @override
+  bool get googleMapController {
+    _$googleMapControllerAtom.reportRead();
+    return super.googleMapController;
+  }
+
+  @override
+  set googleMapController(bool value) {
+    _$googleMapControllerAtom.reportWrite(value, super.googleMapController, () {
+      super.googleMapController = value;
+    });
+  }
+
   late final _$eventListAtom =
       Atom(name: '_ControllerStoreBase.eventList', context: context);
 
@@ -270,6 +286,55 @@ mixin _$ControllerStore on _ControllerStoreBase, Store {
   set eventList(List<EventModel> value) {
     _$eventListAtom.reportWrite(value, super.eventList, () {
       super.eventList = value;
+    });
+  }
+
+  late final _$messageFirebaseErrorAtom =
+      Atom(name: '_ControllerStoreBase.messageFirebaseError', context: context);
+
+  @override
+  String get messageFirebaseError {
+    _$messageFirebaseErrorAtom.reportRead();
+    return super.messageFirebaseError;
+  }
+
+  @override
+  set messageFirebaseError(String value) {
+    _$messageFirebaseErrorAtom.reportWrite(value, super.messageFirebaseError,
+        () {
+      super.messageFirebaseError = value;
+    });
+  }
+
+  late final _$erroFirebaseAtom =
+      Atom(name: '_ControllerStoreBase.erroFirebase', context: context);
+
+  @override
+  bool get erroFirebase {
+    _$erroFirebaseAtom.reportRead();
+    return super.erroFirebase;
+  }
+
+  @override
+  set erroFirebase(bool value) {
+    _$erroFirebaseAtom.reportWrite(value, super.erroFirebase, () {
+      super.erroFirebase = value;
+    });
+  }
+
+  late final _$hasErrorEmailAtom =
+      Atom(name: '_ControllerStoreBase.hasErrorEmail', context: context);
+
+  @override
+  bool get hasErrorEmail {
+    _$hasErrorEmailAtom.reportRead();
+    return super.hasErrorEmail;
+  }
+
+  @override
+  set hasErrorEmail(bool value) {
+    _$hasErrorEmailAtom.reportWrite(value, super.hasErrorEmail, () {
+      super.hasErrorEmail = value;
     });
   }
 
@@ -480,6 +545,50 @@ mixin _$ControllerStore on _ControllerStoreBase, Store {
   }
 
   @override
+  void setGoogleMapController(bool value) {
+    final _$actionInfo = _$_ControllerStoreBaseActionController.startAction(
+        name: '_ControllerStoreBase.setGoogleMapController');
+    try {
+      return super.setGoogleMapController(value);
+    } finally {
+      _$_ControllerStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setMessageFirebaseError(String value) {
+    final _$actionInfo = _$_ControllerStoreBaseActionController.startAction(
+        name: '_ControllerStoreBase.setMessageFirebaseError');
+    try {
+      return super.setMessageFirebaseError(value);
+    } finally {
+      _$_ControllerStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setErroFirebase(bool value) {
+    final _$actionInfo = _$_ControllerStoreBaseActionController.startAction(
+        name: '_ControllerStoreBase.setErroFirebase');
+    try {
+      return super.setErroFirebase(value);
+    } finally {
+      _$_ControllerStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setHasErrorEmail(bool value) {
+    final _$actionInfo = _$_ControllerStoreBaseActionController.startAction(
+        name: '_ControllerStoreBase.setHasErrorEmail');
+    try {
+      return super.setHasErrorEmail(value);
+    } finally {
+      _$_ControllerStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void validadeFields() {
     final _$actionInfo = _$_ControllerStoreBaseActionController.startAction(
         name: '_ControllerStoreBase.validadeFields');
@@ -508,7 +617,11 @@ number: ${number},
 neighborhood: ${neighborhood},
 city: ${city},
 isSaved: ${isSaved},
+googleMapController: ${googleMapController},
 eventList: ${eventList},
+messageFirebaseError: ${messageFirebaseError},
+erroFirebase: ${erroFirebase},
+hasErrorEmail: ${hasErrorEmail},
 validEvent: ${validEvent}
     ''';
   }

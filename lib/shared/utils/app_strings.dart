@@ -12,6 +12,8 @@ class AppStrings {
   static const txtButtonSend = 'Enviar';
   static const txtForgotMessageOk =
       'Seu link de recuperção foi enviado para o e-mail informado';
+  static const txtForgotMessageError =
+      'Ocorreu um erro ao enviar o e-mail de recuperação, tente novamente';
   //Event Screen
   static const tabLeft = 'Eventos Soft';
   static const tabRight = 'Meus eventos';

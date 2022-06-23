@@ -2,6 +2,9 @@ import 'package:Challenge_App/models/event_model.dart';
 import 'package:Challenge_App/services/api.dart';
 import 'package:Challenge_App/services/database.dart';
 import 'package:Challenge_App/services/prefs.dart';
+import 'package:Challenge_App/shared/utils/field_validator.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:mobx/mobx.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -153,16 +156,32 @@ abstract class _ControllerStoreBase with Store {
     eventList = await ClientHttp().getEvent();
   }
 
+  @observable
+  String messageFirebaseError = '';
+
+  @action
+  void setMessageFirebaseError(String value) => messageFirebaseError = value;
+
+  @observable
+  bool erroFirebase = false;
+
+  @action
+  void setErroFirebase(bool value) => erroFirebase = value;
+
   @action
   Future<void> loginUser(
       {required String email, required String password}) async {
     try {
+      setErroFirebase(false);
+      setMessageFirebaseError('');
       await clientDatabase.loginFirebase(email: email, password: password);
     } catch (error) {
       if (error == 'user-not-found') {
-        throw error;
+        setErroFirebase(true);
+        setMessageFirebaseError('Usuário não encontrado');
       } else {
-        throw error;
+        setErroFirebase(true);
+        setMessageFirebaseError('Ocorreu um erro');
       }
     }
   }
@@ -199,14 +218,18 @@ abstract class _ControllerStoreBase with Store {
 
   //Validation Fields
 
+  // @computed
+  // bool get isValidForm => emailValid(email) && passwordValid(password);
+  @observable
+  bool hasErrorEmail = false;
+
+  @action
+  void setHasErrorEmail(bool value) => hasErrorEmail = value;
+
   @action
   void validadeFields() {
-    if (email.isNotEmpty && email.contains('@.')) {
-      if (password.isNotEmpty && password.length > 6) {
-        clientDatabase.loginFirebase(email: email, password: password);
-      } else {
-        errorMessage = 'Preencha os campos corretamente';
-      }
+    if (!emailValid(email)) {
+      setHasErrorEmail(true);
     }
   }
 
